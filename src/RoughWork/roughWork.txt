@@ -1,0 +1,55 @@
+// 1. state variables -> ek page ma ketli item chhe ae mate (dynamic aapde set pari shakiye chhiye)
+
+// 2. current page -> kya page par chhiye (1)
+
+// 3. button -> next ane prev page change karva mate 
+
+// 4. handle buttons -> next ma +1 ane prev ma -1
+
+// 5. display -> page number batava (currentPage)
+
+// 6. point (4) ma condition add karvi kyare + karvi ane kyare - karvi 
+
+// 7.  prev mate -> current page sathe check karavu jo current page 1 karta motu hoi (currentPage > 1) to j prev button chale 
+
+
+// // NOTE : itemPerPage ma je value hoi atla no array posts dar vakhte retun kare chhe 
+
+// item = 100
+
+// Perpage = 20
+
+// totalPages = item/Perpage = 100/20 = 5
+
+
+
+//  ----------------------------------------------------------------
+
+// totalpages maliya pachhi aapde current page sathe check karavi shakiye niche mujab 
+
+//                              ⬇️
+
+//                 nextBtn -> currentPage < totalPages
+
+//                 1 < 5
+//                 2 < 5
+//                 3 < 5
+//                 4 < 5
+//                 5 < 5
+
+// aama check karse totalpage karta current page nanu chhe ke nai nanu hase to next thava dese  last current page 4 hase tyare thava dese atle page 5 ma aavi jase.  
+
+// -------------------------------------------------------------------- 
+
+// itemPerPage ⬇️
+
+// startIndex = currentPage * itemPerPage  --->    2 * 5  = 10
+// endIndex =  startIndex - itemPerPage    --->    10 - 5 = 5
+
+// posts array chhe ma ⬇️
+
+// currentItem = posts.slice(endIndex, startIndex) --> slice chhella ane pchhi na pela vachhe no data aapse 
+
+// have current item par map ferviye atle slect kareli number jetli j item malse
+
+// pachhi nextBtn -> currentPage < totalPages aa logic lagi shake chhe 
