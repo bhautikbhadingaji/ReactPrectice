@@ -25,16 +25,16 @@ export const AllPosts = (
   const [posts, setPosts] = useState([])
   const [filterPost, setFilterPost] = useState([])      //filter state
   const [searchValue, setSearchValue] = useState([])   //search state 
+
+
   const [itemsPerPage, setitemsPerPage] = useState(5)   //item par page state
-
-
   const [currentPage, setCurrentPage] = useState(1)   //pagination state
 
   console.log("currentPage", currentPage);
   console.log("itemsPerPage", itemsPerPage);
   console.log("posts-->", posts);
 
-  const [data] = useFetch(`https://jsonplaceholder.typicode.com/posts?_page=${currentPage}&_limit=${itemsPerPage}`)
+  const [data] = useFetch(`https://jsonplaceholder.typicode.com/posts`)
 
   useEffect(() => {
     if (data) {
@@ -48,18 +48,6 @@ export const AllPosts = (
     posts.unshift(inputValue);
   }
 
-  // useEffect(() => {
-  //   setLoading(true)
-  //   getPost()
-  //     .then((res) => {
-  //       setPosts(res.data)
-  //       setLoading(false)
-  //     })
-  //     .catch((err) => {
-  //       console.error("Fetch posts failed", err)
-  //       setLoading(false)
-  //     })
-  // }, [])
 
   posts.forEach((element) => {
     if (element.id === editedValue.id) {
@@ -110,8 +98,30 @@ export const AllPosts = (
       setLoading(false);
     }
   }
-  
+
   // pagination
+
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex - itemsPerPage;
+
+  const currentItems = posts.slice(endIndex, startIndex);
+
+  const handleItemPerPage = async () => {
+    // try {
+    //   setLoading(true)
+    //   const res = await getLimitForPage(currentPage,itemsPerPage);
+    //   setitemsPerPage(res.data)
+    // } catch (err) {
+    //   console.error("fetch posts faild",err);
+    // }finally{
+    //   setLoading(false)
+    // }
+  }
+  // console.log("ITEMPARPAGE",itemsPerPage)
+
+  const totalPages = Math.ceil(posts.length / itemsPerPage);
+
+  console.log("totalPages", totalPages)
 
   const handlePrevBtn = () => {
     if (currentPage > 1) {
@@ -122,7 +132,7 @@ export const AllPosts = (
 
   const handleNextBtn = () => {
 
-    if (posts.length >= itemsPerPage) {
+    if (currentPage < totalPages) {
 
       setCurrentPage((prev) => prev + 1)
     } else {
@@ -131,12 +141,9 @@ export const AllPosts = (
     console.log("in next btn")
   }
 
-  const totalPages =
-      Math.ceil(posts.length / itemsPerPage);
-
-      const goToSpecificPage =(pageNumber)=>{
-         setCurrentPage(pageNumber);
-      }
+  // const goToSpecificPage =(pageNumber)=>{
+  //    setCurrentPage(pageNumber);
+  // }
 
   if (loading) return <p>Loading...</p>;
 
@@ -171,7 +178,7 @@ export const AllPosts = (
       <div className="flex flex-wrap gap-4 justify-center p-4">
 
 
-        {posts?.map((post, index) => (
+        {currentItems?.map((post, index) => (
           <SimpleCard
             key={index}
             post={post}
@@ -189,10 +196,10 @@ export const AllPosts = (
 
       </div>
 
-      <div>
+      <div className="sticky bottom-0 bg-gray-800">
 
         <select className="inline-flex justify-center gap-x-1.5 border p-2 rounded bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring-1 inset-ring-white/5 hover:bg-white/20"
-          value={itemsPerPage} onChange={(e) => setitemsPerPage(e.target.value)}>
+          value={itemsPerPage} onChange={(e) => setitemsPerPage(e.target.value)} onClick={handleItemPerPage}>
           <option>Select Posts Page</option>
           <option>5</option>
           <option>10</option>
@@ -209,25 +216,25 @@ export const AllPosts = (
           Prev
         </button>
 
-{/* {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => ( */}
+        {/* {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => ( */}
         <button className="ml-2 mr-2 rounded cursor-not-allowed bg-white font-bold py-1 px-2"
         // onClick={onPageChange(page)}
         >
           {currentPage}
         </button>
 
-{/* //  ))} */}
+        {/* //  ))} */}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded cursor-pointer"
           onClick={handleNextBtn}
-          // disabled={currentPage === totalPages}
+        // disabled={currentPage === totalPages}
         >
 
           Next
         </button>
       </div>
 
-      </ul>
-    )
+    </ul>
+  )
 }
 

@@ -20,9 +20,16 @@ export const getComments = (id) => {            // getsearched api
     return api.get(`/posts/${id}/comments`)
 }
 
+export const getFilteredComments = (id, FilterComments) => {  //filter comments api
+    return api.get(`/posts/${id}/comments?email=${FilterComments}`)
+}
+
 export const getCardDetails = (id) => {      //get cardDetails api
     return api.get(`/posts/${id}`)
 }
+// export const getLimitForPage = (currentPage,itemsPerPage) => {      // limited data for pagination
+//     return api.get(`/posts?_page=${currentPage}&_limit=${itemsPerPage}`)
+// }
 
 export const creatPost = (post) => {     //creat api
     return api.post("/posts", post)
