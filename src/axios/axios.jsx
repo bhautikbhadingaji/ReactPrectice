@@ -46,3 +46,15 @@ export const editTitlePost = (id, post) => {  //update title api
 export const deletePost = (id) => {             //delete api
     return api.delete(`/posts/${id}`)
 }
+
+// get users
+
+export const getUsers = () => {
+    return api.get("/users")
+}
+
+// get users posts
+
+export const getUsersPost = (seletedUser) => {
+    return api.get(`/posts?userId=${seletedUser}`)
+}

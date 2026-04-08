@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import "../App.css"
 import { SimpleCard } from "./dataCard.jsx"
-import { getFilteredPost, getsearchedPost } from "../axios/axios.jsx"
+import { getFilteredPost, getsearchedPost, getUsers, getUsersPost } from "../axios/axios.jsx"
 import { useFetch } from "../Hooks/useFetch.jsx"
 
 
@@ -23,17 +23,16 @@ export const AllPosts = (
 
 
   const [posts, setPosts] = useState([])
-  const [filterPost, setFilterPost] = useState([])      //filter state
-  const [searchValue, setSearchValue] = useState([])   //search state 
+  const [filterPost, setFilterPost] = useState([])       //filter state
+  const [searchValue, setSearchValue] = useState([])    //search state 
 
 
-  const [itemsPerPage, setitemsPerPage] = useState(5)   //item par page state
-  const [currentPage, setCurrentPage] = useState(1)   //pagination state
+  const [itemsPerPage, setitemsPerPage] = useState(5)    //item par page state
+  const [currentPage, setCurrentPage] = useState(1)     //pagination state
 
-  console.log("currentPage", currentPage);
-  console.log("itemsPerPage", itemsPerPage);
-  console.log("posts-->", posts);
-
+  const [users, setUsers] = useState([])                //get users state
+  // const [selectedUser, setSelectedUser] = useState("") //seleted user in dropDown state
+  
   const [data] = useFetch(`https://jsonplaceholder.typicode.com/posts`)
 
   useEffect(() => {
@@ -117,17 +116,14 @@ export const AllPosts = (
     //   setLoading(false)
     // }
   }
-  // console.log("ITEMPARPAGE",itemsPerPage)
 
   const totalPages = Math.ceil(posts.length / itemsPerPage);
 
-  console.log("totalPages", totalPages)
 
   const handlePrevBtn = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
     }
-    console.log("in prev btn")
   }
 
   const handleNextBtn = () => {
@@ -138,12 +134,44 @@ export const AllPosts = (
     } else {
       console.log("can't go next")
     }
-    console.log("in next btn")
   }
 
-  // const goToSpecificPage =(pageNumber)=>{
-  //    setCurrentPage(pageNumber);
+
+  // get users in dropdown
+
+  useEffect(() => {
+    const getUsersFunction = async () => {
+
+      const res = await getUsers();
+      setUsers(res.data);
+    }
+    getUsersFunction()
+  }, [])
+
+  const handleSeletedUser = async(e) => {
+     try {
+      // setSelectedUser(e.target.value)
+      setLoading(true);
+      const res = await getUsersPost(e.target.value);
+      setPosts(res.data);
+    } catch (err) {
+      console.error("Fetch posts failed", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // const handleUsers = async() => {
+  //    try {
+  //               const res = await getUsers();
+  //               setUsers(res.data);
+  //           } catch (error) {
+  //               console.error("Fetch posts failed", err);
+  //           }finally{
+  //               setLoading(false)
+  //           }
   // }
+
 
   if (loading) return <p>Loading...</p>;
 
@@ -158,21 +186,30 @@ export const AllPosts = (
         />
 
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer ml-2"
           onClick={handleFilterPost}
         >Filter</button>
-      </div>
-      <div className="mt-4">
-        <input className="border p-2 rounded"
+
+        <input className="border p-2 rounded ml-20"
           type="text"
           placeholder="search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer ml-2"
           onClick={handleSearchPost}
         >search</button>
+      </div>
+
+      <div>
+        <select className="inline-flex justify-center gap-x-1.5 border p-2 rounded bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring-1 inset-ring-white/5 hover:bg-white/20 mt-5"
+         onChange={handleSeletedUser}
+        >
+          {users?.map(item =>
+            <option key={item.id} value={item.id}>{item.name} - {item.id}</option>
+          )}
+        </select>
       </div>
 
       <div className="flex flex-wrap gap-4 justify-center p-4">
@@ -216,18 +253,14 @@ export const AllPosts = (
           Prev
         </button>
 
-        {/* {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => ( */}
         <button className="ml-2 mr-2 rounded cursor-not-allowed bg-white font-bold py-1 px-2"
-        // onClick={onPageChange(page)}
         >
           {currentPage}
         </button>
 
-        {/* //  ))} */}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded cursor-pointer"
           onClick={handleNextBtn}
-        // disabled={currentPage === totalPages}
         >
 
           Next

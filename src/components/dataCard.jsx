@@ -51,41 +51,41 @@ export function SimpleCard(
 		<div className="max-w-sm bg-green-200 rounded-lg shadow-md overflow-hidden mt-6 inline-flex">
 			<div className="p-6">
 				<h3 className="text-2xl font-bold text-gray-900 mb-3">
-					Title:{title}
-					<FaRegEdit className="cursor-pointer"
+					Title:{title.substring(0,12) + ' ...'}
+					<FaRegEdit className="cursor-pointer inline-block ml-3"
 						onClick={() => handleChangeTitle(id, title)}
 					/>
 				</h3>
 				<p className="text-gray-600 text-base mb-4">
-					Body:{body}
+					Body:{body.substring(0,100) + ' ...'}
 				</p>
 				<div className="text-blue-500 hover:text-blue-700">
 					<NavLink to={`/posts/${id}`}>
 						Read More
-						{/* <button>Read More</button> */}
 					</NavLink>
 				</div>
 				<br />
-				<div className="grid grid-cols-2 gap-4">
+				<div className="grid grid-cols-3 gap-4">
 					<button
 						onClick={() => handleEditPost(id, title, body)}
-						className="bg-orange-300 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded cursor-pointer">
+						className="bg-orange-300 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded cursor-pointer mt-7">
 						EDIT
 					</button>
 
 					<button
 						onClick={() => handleDeletePost(id)}
-						className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer ">
+						className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer mt-7  ">
 						DELETE
 					</button>
-				</div>
-				<NavLink to={`/posts/${id}/comments`}>
+					<NavLink to={`/posts/${id}/comments`}>
 					<button
-						className="bg-gray-300 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded cursor-pointer mt-7 mr-45"
+						className="bg-gray-400 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-pointer mt-7 mr-7"
 						>
 						Comments
 					</button>
 				</NavLink>
+				</div>
+				
 			</div>
 		</div>
 

@@ -57,7 +57,7 @@ export const Form = ({
     }
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full max-w-md p-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full max-w-md p-4 ml-70">
             <input
                 value={title}
                 onChange={e => setTitle(e.target.value)}

@@ -12,7 +12,6 @@ export const CommentPost = () => {
 
     const [FilterComments, setFilterComments] = useState([])
 
-    console.log("FilterComments", FilterComments)
 
     const [data] = useFetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
 
@@ -24,29 +23,15 @@ export const CommentPost = () => {
         setLoading(false)
     },[data])
 
-    //  useEffect(() => {
-    //     setLoading(true)
-    //     getComments(id)
-    //       .then((res) => {
-    //         setComments(res.data)   
-    //         setLoading(false)
-    //       })
-    //       .catch((err) => {
-    //         console.error("Fetch posts failed", err)
-    //         setLoading(false)
-    //       })
-
-    //   }, [id])
-
-    // filter for Comments
-
     const handleFilterComments = async () => {
+        setLoading(true)
         try {
             const res = await getFilteredComments(id, FilterComments);
             setComments(res.data);
-            console.log("res==>", res.data)
         } catch (error) {
             console.error("Fetch posts failed", err);
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -65,7 +50,7 @@ export const CommentPost = () => {
                 />
 
                 <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer ml-2"
                     onClick={handleFilterComments}
                 >Filter</button>
 

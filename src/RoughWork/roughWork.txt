@@ -53,3 +53,63 @@
 // have current item par map ferviye atle slect kareli number jetli j item malse
 
 // pachhi nextBtn -> currentPage < totalPages aa logic lagi shake chhe 
+
+
+------------------------------------------------------------------------------------------------
+[08/04/2026]
+--------------------------------------------------------------------------------------------------
+ek user naam nu dropdown rakhvu 
+je user select kare ae user ni post batavi
+
+step-1
+ek dropdown levu 
+
+step-2
+get method thi users get karva
+
+step-3
+loop fervi data dropDown ma batavvo
+
+step -4
+seleted data(user) melavvo 
+
+step-5 ----------------------------------------------------------------------------------------|
+have post ni id ane seletedUser ni id match karavi je user select kariye aeno j data batavo    |
+                                                                                               |
+users.id === posts.userId                                                                      |
+                                                                                               |
+id match thai thai atli post retun karavvi                                                     |
+-----------------------------------------------------------------------------------------------|
+
+user ma id chhe 
+posts ma userid chhe 
+
+step-5
+userid wali [https://jsonplaceholder.typicode.com/posts?userId=1] api 
+
+step-6
+userid dropDown ma rahela user nu levu 
+
+step-7
+jyare user select kariye tema raheli id 
+[`https://jsonplaceholder.typicode.com/posts?userId=${selectedUser}`] aa rite pass karavi devi
+
+step-8
+pachhi api call karava thi ae j data aavse je selectedUser user ni id sathe match thata hase
+
+----------------------------------------------------------------------------------------------
+custom hook ma fetch ne badle axios thi karavu ⬇️
+----------------------------------------------------------------------------------------------
+
+step-1
+fetch ne badle axios.get vaparvu
+
+step-2
+res.json ne dur karvu because axios ma json ma convert karvani need nathi hati
+
+step-3 
+state variable ma set karvo res ne 
+
+NOTE: useEffect ma async await use karva andar ek function levu ane last ma call karai devu
+ 
+

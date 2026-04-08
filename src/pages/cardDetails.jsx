@@ -10,7 +10,6 @@ export const CardDetails = () => {
   const [post, setPost] = useState([]);
 
   const [data] = useFetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-  console.log("datadata", data)
 
   useEffect(() => {
     if (data) {
