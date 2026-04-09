@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { creatPost, editTitlePost, updatePost } from "../axios/axios"
 
 
@@ -32,7 +32,7 @@ export const Form = ({
     }, [updateTitle])
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault()
 
         if (isEmpty && Object.keys(updateTitle).length === 0) {
@@ -54,7 +54,9 @@ export const Form = ({
         }
         setTitle("")
         setBody("")
-    }
+    },[
+        title,body,updateTitle,updateData,isEmpty,updateOnlyTitle,setInputValue,setEditedValue,setUpdateTitle
+    ]);
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full max-w-md p-4 ml-70">

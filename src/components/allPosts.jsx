@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import "../App.css"
 import { SimpleCard } from "./dataCard.jsx"
 import { getFilteredPost, getsearchedPost, getUsers, getUsersPost } from "../axios/axios.jsx"
@@ -120,13 +120,15 @@ export const AllPosts = (
   const totalPages = Math.ceil(posts.length / itemsPerPage);
 
 
-  const handlePrevBtn = () => {
+  const handlePrevBtn = useCallback(() => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
     }
-  }
+  },[
+    currentPage
+  ])
 
-  const handleNextBtn = () => {
+  const handleNextBtn = useCallback( () => {
 
     if (currentPage < totalPages) {
 
@@ -134,7 +136,9 @@ export const AllPosts = (
     } else {
       console.log("can't go next")
     }
-  }
+  },[
+    currentPage,totalPages
+  ])
 
 
   // get users in dropdown
@@ -148,7 +152,7 @@ export const AllPosts = (
     getUsersFunction()
   }, [])
 
-  const handleSeletedUser = async(e) => {
+  const handleSeletedUser = useCallback( async(e) => {
      try {
       // setSelectedUser(e.target.value)
       setLoading(true);
@@ -159,7 +163,7 @@ export const AllPosts = (
     } finally {
       setLoading(false);
     }
-  }
+  },[])
 
   // const handleUsers = async() => {
   //    try {

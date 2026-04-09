@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
 import { getFilteredComments } from "../axios/axios"
 import { useFetch } from "../Hooks/useFetch"
@@ -21,19 +21,21 @@ export const CommentPost = () => {
             setComments(data)
         }
         setLoading(false)
-    },[data])
+    }, [data])
 
-    const handleFilterComments = async () => {
+    const handleFilterComments = useCallback(async () => {
         setLoading(true)
         try {
             const res = await getFilteredComments(id, FilterComments);
             setComments(res.data);
         } catch (error) {
             console.error("Fetch posts failed", err);
-        }finally{
+        } finally {
             setLoading(false)
         }
-    }
+    }, [
+        id, FilterComments
+    ])
 
     if (loading) return <p>Loading...</p>;
     if (!comments) return <p>No data available</p>;
@@ -69,7 +71,7 @@ export const CommentPost = () => {
                 )}
 
             </div>
-           
+
             <div className="ml-220 mb-8 mr-3 fixed bottom-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
                 <NavLink
                     to="/"
@@ -77,7 +79,7 @@ export const CommentPost = () => {
                     ← Back
                 </NavLink>
             </div>
-        
+
         </>
     )
 }

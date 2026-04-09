@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Form } from "./addPostForm";
 import { AllPosts } from "./allPosts";
 import { SimpleCard } from "./dataCard";
@@ -12,10 +12,30 @@ export const AllPostPerents = () => {
     const [loading, setLoading] = useState(false); //loading
 
 
+const allPostsMemo = useMemo(()=>({
+inputValue,
+updateData,
+setUpdateData,
+editedValue,
+setUpdateTitle,
+updateTitle,
+setDeletePost,
+deletePost,
+loading,
+setLoading
+}),[
+inputValue,
+updateData,
+editedValue,
+updateTitle,
+deletePost,
+loading
+]);
+
     return (
         <>
             <Form setInputValue={setInputValue} updateData={updateData} setEditedValue={setEditedValue} updateTitle={updateTitle} setUpdateTitle={setUpdateTitle} />
-            <AllPosts inputValue={inputValue} updateData={updateData} setUpdateData={setUpdateData} editedValue={editedValue} setUpdateTitle={setUpdateTitle} updateTitle={updateTitle} setDeletePost={setDeletePost} deletePost={deletePost} loading={loading} setLoading={setLoading} />
+            <AllPosts {...allPostsMemo} />
             <SimpleCard post={null} updateData={updateData} setUpdateData={setUpdateData} setUpdateTitle={setUpdateTitle} updateTitle={updateTitle} setDeletePost={setDeletePost} deletePost={deletePost} />
         </>
     )

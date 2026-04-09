@@ -111,5 +111,20 @@ step-3
 state variable ma set karvo res ne 
 
 NOTE: useEffect ma async await use karva andar ek function levu ane last ma call karai devu
- 
+
+--------------------------------------------------------------------------------------------------------------------
+[09/04/2026] 
+--------------------------------------------------------------------------------------------------------------------
+usememo ane usecallback optimization
+
+usememo--> data chaneg na thai to fari render na thai 
+
+usecallback --> function mate 
+
+usecallback (()=>{
+
+}
+),[]
+
+
 
