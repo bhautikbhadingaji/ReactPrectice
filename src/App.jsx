@@ -1,11 +1,10 @@
-
 import "./App.css"
 
 import { Route, BrowserRouter, Routes } from "react-router-dom"
 import { CardDetails } from "./pages/cardDetails"
 import {AllPostPerents} from "./components/allPostPerents"
 import { CommentPost } from "./components/comments"
-
+import { Form } from "./components/addPostForm"
 
 export const App = () => {
   
@@ -17,7 +16,7 @@ export const App = () => {
           <Route path="/" element={<AllPostPerents />}/>
           <Route path="/posts/:id" element={<CardDetails />}/>
           <Route path="/posts/:id/comments" element={<CommentPost />} />
-          {/* <Route path="/signin" element={<Signin/>}/> */}
+          <Route path="/add-post" element={<Form />} />
         </Routes>
       </BrowserRouter>
   )
