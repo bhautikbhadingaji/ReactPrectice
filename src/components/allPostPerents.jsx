@@ -4,7 +4,7 @@ import { AllPosts } from "./allPosts";
 import { SimpleCard } from "./dataCard";
 import { Navbar } from "./navbar";
 
-export const AllPostPerents = () => {
+export const AllPostPerents = ({showForm, showPosts}) => {
     const [inputValue, setInputValue] = useState({});
     const [updateData, setUpdateData] = useState({});
     const [editedValue, setEditedValue] = useState({}); //editPost
@@ -36,8 +36,8 @@ export const AllPostPerents = () => {
     return (
         <>
             <Navbar />
-            <Form setInputValue={setInputValue} updateData={updateData} setEditedValue={setEditedValue} updateTitle={updateTitle} setUpdateTitle={setUpdateTitle} />
-            <AllPosts {...allPostsMemo} />
+            {showForm ? (<Form setInputValue={setInputValue} updateData={updateData} setEditedValue={setEditedValue} updateTitle={updateTitle} setUpdateTitle={setUpdateTitle}/>) : null}
+            {showPosts ? (<AllPosts {...allPostsMemo} />) : null}
             <SimpleCard post={null} updateData={updateData} setUpdateData={setUpdateData} setUpdateTitle={setUpdateTitle} updateTitle={updateTitle} setDeletePost={setDeletePost} deletePost={deletePost} />
         </>
     )

@@ -59,7 +59,8 @@ export const Form = ({
     ]);
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full max-w-md p-4 ml-70">
+        <div className="flex justify-center items-center">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full max-w-md p-4 ">
             <input
                 value={title}
                 onChange={e => setTitle(e.target.value)}
@@ -81,5 +82,6 @@ export const Form = ({
                 {updateOnlyTitle ? "EDIT" : "ADD"}
             </button>
         </form>
+        </div>
     )
 }
