@@ -59,9 +59,11 @@ export function SimpleCard(
 			<div className="p-6">
 				<h3 className="text-2xl font-bold text-gray-900 mb-3">
 					Title:{title.substring(0, 12) + ' ...'}
+					<NavLink to= "/add-post">
 					<FaRegEdit className="cursor-pointer inline-block ml-3"
 						onClick={() => handleChangeTitle(id, title)}
-					/>
+						/>
+						</NavLink>
 				</h3>
 				<p className="text-gray-600 text-base mb-4">
 					Body:{body.substring(0, 100) + ' ...'}
@@ -73,11 +75,13 @@ export function SimpleCard(
 				</div>
 				<br />
 				<div className="grid grid-cols-3 gap-4">
+					<NavLink to= "/add-post">
 					<button
 						onClick={() => handleEditPost(id, title, body)}
 						className="bg-orange-300 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded cursor-pointer mt-7">
 						EDIT
 					</button>
+					</NavLink>
 
 					<button
 						onClick={() => handleDeletePost(id)}
